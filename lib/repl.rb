@@ -1,3 +1,4 @@
+require 'mkmf'
 require 'shellwords'
 
 require 'repl/version'

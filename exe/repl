@@ -19,6 +19,13 @@ if ARGV.delete('--man')
   exit(0) # superfluous, really...
 end
 
+if MakeMakefile.find_executable0('rlwrap')
+  unless ENV['__REPL_RLWRAP__']
+    ENV['__REPL_RLWRAP__'] = Process.pid.to_s
+    exec("rlwrap #{$PROGRAM_NAME} #{ARGV.join(' ')}")
+  end
+end
+
 # process the options
 clear  = ARGV.delete('--clear')
 debug  = ARGV.delete('--debug')
