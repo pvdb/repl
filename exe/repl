@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path('../lib', __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'repl'
+
+if ARGV.delete('--help') || ARGV.empty?
+  puts File.read(File.join(__dir__, '..', 'man', 'repl.txt'))
+  exit(0)
+end
+
+if ARGV.delete('--version')
+  puts Repl::VERSION
+  exit(0)
+end
+
+if ARGV.delete('--man')
+  exec "man #{File.join(__dir__, '..', 'man', 'repl.1')}"
+  exit(0) # superfluous, really...
+end
+
+# process the options
+clear  = ARGV.delete('--clear')
+debug  = ARGV.delete('--debug')
+stdin  = ARGV.delete('--stdin')
+escape = ARGV.delete('--escape')
+
+# command is whatever's left
+cmd_parts  = ARGV.map(&:strip)
+embed      = cmd_parts.grep(/\A%s\z/).any?
+cmd_string = cmd_parts.join(' ').strip
+
+if cmd_string.empty?
+  puts 'No command specified... use `--help`'
+  exit(0)
+end
+
+cmd_template = if stdin
+                 "/bin/echo -n \"%s\" | #{cmd_string}"
+               elsif embed
+                 cmd_string # the '%s` is embedded
+               else
+                 "#{cmd_string} %s"
+               end
+
+cmd_prompt = (debug ? cmd_template : cmd_string).bold
+
+loop do
+  print cmd_prompt
+  print ' >> '
+
+  line = begin
+           $stdin.gets&.strip
+         rescue Interrupt
+           nil
+         end
+
+  exit(0) unless line
+
+  line = Shellwords.escape(line) if escape
+  command = format(cmd_template, line)
+
+  puts "\e[H\e[2J"    if clear
+  puts "$ #{command}" if debug
+
+  system(command)
+  puts # empty separator line
+end
+
+# That's all Folks!
