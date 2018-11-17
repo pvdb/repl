@@ -3,6 +3,9 @@ Layout/EmptyLinesAroundClassBody:
 Layout/EmptyLineBetweenDefs:
   Enabled: false
 
+Metrics/BlockNesting:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
