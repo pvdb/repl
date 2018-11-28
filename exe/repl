@@ -58,18 +58,14 @@ stdin  = ARGV.delete('--stdin')
 escape = ARGV.delete('--escape')
 
 # command is whatever's left
-cmd_parts  = ARGV.map(&:strip)
-embed      = cmd_parts.grep(/%s/).any?
-cmd_string = cmd_parts.join(' ').strip
-
-if cmd_string.empty?
+if (cmd_string = ARGV.join(' ').strip).empty?
   puts 'No command specified... use `--help`'
   exit(0)
 end
 
 cmd_template = if stdin
                  "/bin/echo -n \"%s\" | #{cmd_string}"
-               elsif embed
+               elsif ARGV.grep(/%s/).any?
                  cmd_string # the '%s' is embedded
                else
                  "#{cmd_string} %s"
