@@ -19,11 +19,14 @@ if ARGV.delete('--man')
   exit(0) # superfluous, really...
 end
 
+# list of options/flags
+OPTIONS = %w{--clear --debug --stdin --escape}.freeze
+
 if MakeMakefile.find_executable0('rlwrap')
   unless ENV['__REPL_RLWRAP__']
     rlwrap_args = []
 
-    if (base_cmd = ARGV.find { |arg| !arg.start_with?('-') })
+    unless (base_cmd = (ARGV - OPTIONS).map(&:strip).first).empty?
       base_cmd = File.basename(base_cmd)
 
       default_history_dir = Dir.home
