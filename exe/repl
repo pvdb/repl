@@ -59,7 +59,7 @@ escape = ARGV.delete('--escape')
 
 # command is whatever's left
 cmd_parts  = ARGV.map(&:strip)
-embed      = cmd_parts.grep(/\A%s\z/).any?
+embed      = cmd_parts.grep(/%s/).any?
 cmd_string = cmd_parts.join(' ').strip
 
 if cmd_string.empty?
@@ -70,7 +70,7 @@ end
 cmd_template = if stdin
                  "/bin/echo -n \"%s\" | #{cmd_string}"
                elsif embed
-                 cmd_string # the '%s` is embedded
+                 cmd_string # the '%s' is embedded
                else
                  "#{cmd_string} %s"
                end
