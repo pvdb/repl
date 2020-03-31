@@ -91,7 +91,10 @@ loop do
   puts "\e[H\e[2J"    if clear
   puts "$ #{command}" if debug
 
-  system(command)
+  if system(command).nil?
+    print 'system("', command, '"): ' unless debug
+    puts '<Errno::ENOENT>'.red
+  end
   puts # empty separator line
 end
 
