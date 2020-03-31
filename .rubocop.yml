@@ -12,3 +12,17 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/SingleLineMethods:
   Enabled: false
+
+#
+# enable so-called "pending cops"
+# after "minor" RuboCop upgrades!
+#
+# https://docs.rubocop.org/en/latest/versioning/#pending-cops
+#
+
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
