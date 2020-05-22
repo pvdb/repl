@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'repl/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'repl'
+  spec.name          = Repl::NAME
   spec.version       = Repl::VERSION
   spec.authors       = ['Peter Vandenberk']
   spec.email         = ['pvandenberk@mac.com']
@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Sometimes you need a REPL.'
   spec.description   = 'Complete rewrite of the awesome defunct/repl'
   spec.homepage      = 'https://github.com/pvdb/consenter'
+  spec.license       = 'MIT'
 
   spec.files         = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`
@@ -24,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'pry', '~> 0.13'
+  spec.add_development_dependency 'pry-rescue', '~> 1.5'
   spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rubocop', '~> 0.80'
+  spec.add_development_dependency 'rubocop', '~> 0.81'
 end

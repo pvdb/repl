@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class ReplTest < Minitest::Test
+  def test_that_it_has_a_name
+    refute_nil ::Repl::NAME
+  end
+
   def test_that_it_has_a_version_number
     refute_nil ::Repl::VERSION
   end

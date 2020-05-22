@@ -1,16 +1,9 @@
-Layout/EmptyLinesAroundClassBody:
-  Enabled: false
-Layout/EmptyLineBetweenDefs:
-  Enabled: false
-
 Metrics/BlockNesting:
   Enabled: false
 
 Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
-  Enabled: false
-Style/SingleLineMethods:
   Enabled: false
 
 #
@@ -25,4 +18,8 @@ Style/HashEachMethods:
 Style/HashTransformKeys:
   Enabled: true
 Style/HashTransformValues:
+  Enabled: true
+Lint/RaiseException:
+  Enabled: true
+Lint/StructNewOverride:
   Enabled: true
