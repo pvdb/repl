@@ -1,28 +1,34 @@
-# Repl
+# repl(1) -- sometimes you need a repl
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/repl`. To experiment with that code, run `bin/console` for an interactive prompt.
+`repl` is an interactive program which tenderly wraps another,
+non-interactive program.
 
-TODO: Delete this and the text above, and describe your gem
+This version borrows _(very!)_ heavily from but is a ground-up rewrite of
+[Chris Wanstrath][defunkt]'s awesome original version found in [defunkt/repl][].
+
+[defunkt/repl]: https://github.com/defunkt/repl
+[pvdb/repl]: https://github.com/pvdb/repl
+[defunkt]: https://github.com/defunkt
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'repl'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+`repl` can be installed as a RubyGem:
 
     $ gem install repl
 
+That way you can run `repl` without any changes to your system's `$PATH`.
+
 ## Usage
 
-TODO: Write usage instructions here
+See [defunkt/repl][] for usage instructions and examples
+
+## Features
+
+COMING SOON
+
+## TODO
+
+COMING SOON
 
 ## Development
 
@@ -32,4 +38,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/repl.
+Bug reports and pull requests are welcome on GitHub at <https://github.com/pvdb/repl>.
