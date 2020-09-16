@@ -27,7 +27,13 @@ task :default => [:version, :rubocop, :test]
 
 task :documentation
 
-Rake::Task['build'].enhance([:default, :documentation])
+task :ready => :documentation do
+  sh('bundle --quiet') # regenerate Gemfile.lock e.g. if version has changed
+  sh('git update-index --really-refresh') # refresh touched but unchanged docs
+  sh('git diff-index --quiet HEAD --') # https://stackoverflow.com/a/2659808
+end
+
+Rake::Task['build'].enhance([:default, :ready])
 
 # rubocop:enable Style/HashSyntax
 # rubocop:enable Style/SymbolArray
