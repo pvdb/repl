@@ -88,7 +88,8 @@ loop do
   exit(0) unless line
 
   line = Shellwords.escape(line) if escape
-  command = format(cmd_template, line)
+  # command = format(cmd_template, line)  # expand single '%s' placeholder
+  command = cmd_template.gsub('%s', line) # expand _all_ '%s' placeholders
 
   IO.console.puts "\e[H\e[2J"    if clear
   IO.console.puts "$ #{command}" if debug
