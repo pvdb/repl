@@ -85,7 +85,7 @@ loop do
     nil
   end
 
-  exit(0) unless line
+  break unless line
 
   line = Shellwords.escape(line) if escape
   # command = format(cmd_template, line)  # expand single '%s' placeholder
