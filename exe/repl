@@ -78,10 +78,10 @@ loop do
   print ' >> '
 
   line = begin
-           $stdin.gets&.strip
-         rescue Interrupt
-           nil
-         end
+    $stdin.gets&.strip
+  rescue Interrupt
+    nil
+  end
 
   exit(0) unless line
 

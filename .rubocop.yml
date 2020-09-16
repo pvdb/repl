@@ -3,6 +3,8 @@ Metrics/BlockNesting:
 
 Style/Documentation:
   Enabled: false
+Style/SoleNestedConditional:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -13,13 +15,5 @@ Style/FrozenStringLiteralComment:
 # https://docs.rubocop.org/en/latest/versioning/#pending-cops
 #
 
-Style/HashEachMethods:
-  Enabled: true
-Style/HashTransformKeys:
-  Enabled: true
-Style/HashTransformValues:
-  Enabled: true
-Lint/RaiseException:
-  Enabled: true
-Lint/StructNewOverride:
-  Enabled: true
+AllCops:
+  NewCops: enable

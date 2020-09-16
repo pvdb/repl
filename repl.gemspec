@@ -13,7 +13,9 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/pvdb/consenter'
   spec.license       = 'MIT'
 
-  spec.files         = Dir.chdir(File.expand_path(__dir__)) do
+  spec.required_ruby_version = ['>= 2.6.0', '< 2.7.0']
+
+  spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`
       .split("\x0")
       .reject { |f| f.match(%r{^(test|spec|features)/}) }
