@@ -4,13 +4,14 @@ lib = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'repl'
 
-if ARGV.delete('--help') || ARGV.empty?
-  puts File.read(File.join(__dir__, '..', 'man', 'repl.txt'))
-  exit(0)
-end
 
 if ARGV.delete('--version')
   puts Repl::VERSION
+  exit(0)
+end
+
+if ARGV.delete('--help') || ARGV.empty?
+  puts File.read(File.join(__dir__, '..', 'man', 'repl.txt'))
   exit(0)
 end
 
@@ -19,8 +20,8 @@ if ARGV.delete('--man')
   exit(0) # superfluous, really...
 end
 
-# list of options/flags
-OPTIONS = %w[--clear --debug --stdin --escape].freeze
+# list of remaining options/flags
+OPTIONS = %w[--stdin --escape --debug --clear].freeze
 
 if MakeMakefile.find_executable0('rlwrap')
   unless ENV['__REPL_RLWRAP__']
@@ -52,10 +53,10 @@ if MakeMakefile.find_executable0('rlwrap')
 end
 
 # process the options
-clear  = ARGV.delete('--clear')
-debug  = ARGV.delete('--debug')
 stdin  = ARGV.delete('--stdin')
 escape = ARGV.delete('--escape')
+debug  = ARGV.delete('--debug')
+clear  = ARGV.delete('--clear')
 
 # command is whatever's left
 if (cmd_string = ARGV.join(' ').strip).empty?
