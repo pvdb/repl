@@ -4,14 +4,15 @@ lib = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'repl'
 
+require 'io/console'
 
 if ARGV.delete('--version')
-  puts Repl::VERSION
+  IO.console.puts Repl::VERSION
   exit(0)
 end
 
 if ARGV.delete('--help') || ARGV.empty?
-  puts File.read(File.join(__dir__, '..', 'man', 'repl.txt'))
+  IO.console.puts File.read(File.join(__dir__, '..', 'man', 'repl.txt'))
   exit(0)
 end
 
@@ -60,7 +61,7 @@ clear  = ARGV.delete('--clear')
 
 # command is whatever's left
 if (cmd_string = ARGV.join(' ').strip).empty?
-  puts 'No command specified... use `--help`'
+  IO.console.puts 'No command specified... use `--help`'
   exit(0)
 end
 
@@ -75,8 +76,8 @@ cmd_template = if stdin
 cmd_prompt = (debug ? cmd_template : cmd_string).bold
 
 loop do
-  print cmd_prompt
-  print ' >> '
+  IO.console.print cmd_prompt
+  IO.console.print ' >> '
 
   line = begin
     $stdin.gets&.strip
@@ -89,14 +90,14 @@ loop do
   line = Shellwords.escape(line) if escape
   command = format(cmd_template, line)
 
-  puts "\e[H\e[2J"    if clear
-  puts "$ #{command}" if debug
+  IO.console.puts "\e[H\e[2J"    if clear
+  IO.console.puts "$ #{command}" if debug
 
   if system(command).nil?
-    print 'system("', command, '"): ' unless debug
-    puts '<Errno::ENOENT>'.red
+    IO.console.print 'system("', command, '"): ' unless debug
+    IO.console.puts '<Errno::ENOENT>'.red
   end
-  puts # empty separator line
+  IO.console.puts # empty separator line
 end
 
 # That's all Folks!
