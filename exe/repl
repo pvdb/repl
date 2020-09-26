@@ -6,7 +6,7 @@ require 'shellwords'
 require 'io/console'
 
 if ARGV.delete('--version')
-  IO.console.puts Repl::VERSION
+  IO.console.puts 'repl v0.8.0'
   exit(0)
 end
 
