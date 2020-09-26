@@ -4,7 +4,7 @@
 
 ## Synopsis
 
-    repl [repl-options] command ...
+    repl [options] command ...
 
 `command` is executed with each line you type into `repl`'s prompt as command-line arguments (or as standard input), and anything written to standard output or standard error by `command` is displayed.
 

@@ -21,7 +21,7 @@ if ARGV.delete('--man')
 end
 
 # list of remaining options/flags
-OPTIONS = %w[--stdin --escape --printf --debug --clear].freeze
+OPTIONS = %w[--stdin --printf --escape --debug --clear].freeze
 
 if MakeMakefile.find_executable0('rlwrap')
   unless ENV['__REPL_RLWRAP__']
