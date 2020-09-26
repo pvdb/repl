@@ -34,11 +34,13 @@ This version borrows _very(!)_ heavily from but is a ground-up rewrite of [Chris
 
 ## Installation
 
-`repl` can be installed as a RubyGem:
+`repl` is easily installed as a standalone script in your `${PATH}` (`/usr/local/bin` by default)
 
-    $ gem install repl
+    REPL_INSTALL_DIR=/usr/local/bin
+    curl -s https://raw.githubusercontent.com/pvdb/repl/master/exe/repl -o "${REPL_INSTALL_DIR}/repl"
+    chmod 755 "${REPL_INSTALL_DIR}/repl"
 
-That way you can run `repl` without any changes to your system's `$PATH`.
+This way you can run `repl` without any changes to your system's `$PATH`.
 
 ## Usage
 
