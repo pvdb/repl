@@ -25,7 +25,12 @@ end
 
 task :default => [:version, :rubocop, :test]
 
-task :documentation
+task :documentation do
+  # update version in repl script to match gem version
+  repl = Bundler.root.join('exe', 'repl')
+  sed = "/'repl v.\\..\\..'/s/repl v.\\..\\../#{Repl.version}/"
+  system "sed -i \'\' -e \"#{sed}\" #{repl}"
+end
 
 task :ready => :documentation do
   sh('bundle --quiet') # regenerate Gemfile.lock e.g. if version has changed
