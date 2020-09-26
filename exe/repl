@@ -1,9 +1,8 @@
 #!/usr/bin/env ruby
 
-lib = File.expand_path('../lib', __dir__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'repl'
-
+require 'mkmf'
+require 'fileutils'
+require 'shellwords'
 require 'io/console'
 
 if ARGV.delete('--version')
@@ -53,6 +52,12 @@ if MakeMakefile.find_executable0('rlwrap')
   end
 end
 
+class String
+  def colorize(color_code)
+    "\e[#{color_code}m#{self}\e[0m"
+  end
+end
+
 # process the options
 stdin  = ARGV.delete('--stdin')
 escape = ARGV.delete('--escape')
@@ -73,7 +78,7 @@ cmd_template = if stdin
                  "#{cmd_string} %s"
                end
 
-cmd_prompt = (debug ? cmd_template : cmd_string).bold
+cmd_prompt = (debug ? cmd_template : cmd_string).colorize(1) # bold
 
 loop do
   IO.console.print cmd_prompt
