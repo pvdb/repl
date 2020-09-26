@@ -11,7 +11,7 @@ if ARGV.delete('--version')
 end
 
 if ARGV.delete('--help') || ARGV.empty?
-  IO.console.puts File.read(File.join(__dir__, '..', 'man', 'repl.txt'))
+  IO.console.puts DATA.read
   exit(0)
 end
 
@@ -108,4 +108,23 @@ loop do
   IO.console.puts # empty separator line
 end
 
-# That's all Folks!
+exit(0) # cleanly exit repl
+
+__END__
+Usage: repl [options] command ...
+
+Options:
+  --version Display the repl version
+  --help    Display this message
+  --man     Display the man page
+  --stdin   Pipe input to command's STDIN
+  --printf  Avoid newline chars in STDIN
+  --escape  Shell escape user's input
+  --debug   Display each command executed
+  --clear   Clear terminal after each command
+
+Bug reports, suggestions, updates:
+
+  http://github.com/pvdb/repl/issues
+
+That's all Folks!
