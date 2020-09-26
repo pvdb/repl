@@ -1,14 +1,36 @@
-# repl(1) -- sometimes you need a repl
+# repl(1) -- sometimes you *really* need a REPL
 
-`repl` is an interactive program which tenderly wraps another,
-non-interactive program.
+`repl` wraps non-interactive commands in an interactive REPL _(read-eval-print loop)_.
 
-This version borrows _(very!)_ heavily from but is a ground-up rewrite of
-[Chris Wanstrath][defunkt]'s awesome original version found in [defunkt/repl][].
+## Synopsis
+
+    repl [repl-options] command ...
+
+`command` is executed with each line you type into `repl`'s prompt as command-line arguments (or as standard input), and anything written to standard output or standard error by `command` is displayed.
+
+This is repeated until you exit out of `repl`'s interactive loop by using either `CTRL-C` or `CTRL-D`.
+
+## Usage
+
+`repl` is meant to wrap programs which accept and process command line arguments (or which read from and process standard input) and which in turn print to standard output or standard error, but which don't have an interactive mode of their own.
+
+If you have [`rlwrap(1)`][rlwrap] installed you'll automatically get the full benefits of [`readline`][readline]: persistent history, reverse history searches, tab completion, command-specific completions, etc.
+
+Combined with `rlwrap`, `repl` can provide a much richer interactive environment even when wrapping commands that have their own basic one, by supporting `readline` features the command itself doesn't.
+
+## Limitation
+
+`repl` keeps no state between subsequent `command` invocations and, as such, cannot be used to replace things like the Ruby and Python REPLs _(`irb`, `pry`, etc.)_, or other language shells.
+
+## Credits
+
+This version borrows _very(!)_ heavily from but is a ground-up rewrite of [Chris Wanstrath][defunkt]'s awesome [original version][defunkt/repl].
 
 [defunkt/repl]: https://github.com/defunkt/repl
 [pvdb/repl]: https://github.com/pvdb/repl
 [defunkt]: https://github.com/defunkt
+[rlwrap]: https://github.com/hanslub42/rlwrap
+[readline]: https://tiswww.case.edu/php/chet/readline/rltop.html
 
 ## Installation
 
