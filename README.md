@@ -8,16 +8,16 @@
 
 `command` is executed using the lines you type into `repl`'s prompt as either command-line arguments or else as standard input, and anything written by `command` to standard output and standard error is displayed.
 
-This is repeated until you exit out of `repl`'s interactive loop by using either `CTRL-C` or `CTRL-D`.
+This is repeated until you exit out of `repl`'s interactive loop by using either `CTRL-C` or `CTRL-D` at the prompt (default prompt is "`>> `"):
 
     $ repl host -t A
-    host -t A >> google.com
+    >> google.com
     google.com has address 216.58.212.206
     
-    host -t A >> google.co.uk
+    >> google.co.uk
     google.co.uk has address 172.217.169.35
     
-    host -t A >> ^D
+    >> ^D
     $ _
 
 ## Usage

@@ -80,11 +80,14 @@ cmd_template = if stdin
                  "#{cmd_string} %s"
                end
 
-cmd_prompt = (debug ? cmd_template : cmd_string).colorize(1) # bold
+default_prompt = debug ? cmd_template : cmd_string
+default_prompt = default_prompt.colorize(1) # bold
+default_prompt = "#{default_prompt} >>".freeze
+
+repl_prompt = "#{ENV.fetch('REPL_PROMPT', default_prompt)} "
 
 loop do
-  IO.console.print cmd_prompt
-  IO.console.print ' >> '
+  IO.console.print repl_prompt
 
   line = begin
     $stdin.gets&.strip
