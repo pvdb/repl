@@ -8,7 +8,7 @@
 
 `command` is executed using the lines you type into `repl`'s prompt as either command-line arguments or else as standard input, and anything written by `command` to standard output and standard error is displayed.
 
-This is repeated until you exit out of `repl`'s interactive loop by using either `CTRL-C` or `CTRL-D` at the prompt (default prompt is "`>> `"):
+This is repeated until you exit out of `repl`'s interactive loop by using either `CTRL-C` or `CTRL-D` at the prompt (default is `>> `):
 
     $ repl host -t A
     >> google.com
@@ -61,6 +61,14 @@ COMING SOON
 ## Features
 
 COMING SOON
+
+## Configuration
+
+The following environment variables can be used to override `repl`'s defaults:
+
+* `REPL_PROMPT`: prompt to use in `repl`'s read-eval-print loop (default: `>> `)
+* `REPL_HISTORY_DIR`: directory in which history files are kept (default: `${HOME}`)
+* `REPL_COMPLETION_DIR`: directory in which completion files are kept (default: `${HOME}/.repl`)
 
 ## TODO
 
