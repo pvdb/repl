@@ -6,13 +6,23 @@
 
     repl [options] command ...
 
-`command` is executed with each line you type into `repl`'s prompt as command-line arguments (or as standard input), and anything written to standard output or standard error by `command` is displayed.
+`command` is executed using the lines you type into `repl`'s prompt as either command-line arguments or else as standard input, and anything written by `command` to standard output and standard error is displayed.
 
 This is repeated until you exit out of `repl`'s interactive loop by using either `CTRL-C` or `CTRL-D`.
 
+    $ repl host -t A
+    host -t A >> google.com
+    google.com has address 216.58.212.206
+    
+    host -t A >> google.co.uk
+    google.co.uk has address 172.217.169.35
+    
+    host -t A >> ^D
+    $ _
+
 ## Usage
 
-`repl` is meant to wrap programs which accept and process command line arguments (or which read from and process standard input) and which in turn print to standard output or standard error, but which don't have an interactive mode of their own.
+`repl` is meant to wrap programs which accept and process command line arguments or which read from and process standard input, and which in turn print to standard output or standard error, but which don't have an interactive REPL of their own.
 
 If you have [`rlwrap(1)`][rlwrap] installed you'll automatically get the full benefits of [`readline`][readline]: persistent history, reverse history searches, tab completion, command-specific completions, etc.
 
@@ -24,7 +34,7 @@ Combined with `rlwrap`, `repl` can provide a much richer interactive environment
 
 ## Credits
 
-This version borrows _very(!)_ heavily from but is a ground-up rewrite of [Chris Wanstrath][defunkt]'s awesome [original version][defunkt/repl].
+This version borrows _very, very_ heavily from but is a ground-up rewrite of [Chris Wanstrath][defunkt]'s awesome [original version][defunkt/repl].
 
 [defunkt/repl]: https://github.com/defunkt/repl
 [pvdb/repl]: https://github.com/pvdb/repl
@@ -34,7 +44,9 @@ This version borrows _very(!)_ heavily from but is a ground-up rewrite of [Chris
 
 ## Installation
 
-`repl` is easily installed as a standalone script in your `${PATH}` (`/usr/local/bin` by default)
+`repl` is easily installed as a standalone script somewhere in your `${PATH}`; the default install location is `/usr/local/bin`, but it can be anything on your `${PATH}`.
+
+Run the following commands in your preferred shell:
 
     REPL_INSTALL_DIR=/usr/local/bin
     curl -s https://raw.githubusercontent.com/pvdb/repl/master/exe/repl -o "${REPL_INSTALL_DIR}/repl"
@@ -42,9 +54,9 @@ This version borrows _very(!)_ heavily from but is a ground-up rewrite of [Chris
 
 This way you can run `repl` without any changes to your system's `$PATH`.
 
-## Usage
+## Examples
 
-See [defunkt/repl][] for usage instructions and examples
+COMING SOON
 
 ## Features
 
