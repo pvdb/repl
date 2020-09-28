@@ -16,7 +16,10 @@ module Repl
     "#{repl_version} (#{rlwrap_version})"
   end
 
-  V_REGEXP = 'repl [0-9]+\.[0-9]+(\.[0-9]+)? \(rlwrap [0-9]+\.[0-9]+(\.[0-9]+)?\)'.freeze
+  REPL_REGEXP = 'repl [0-9]+\.[0-9]+(\.[0-9]+)?'.freeze
+  RLWRAP_REGEXP = 'rlwrap ([0-9]+\.[0-9]+(\.[0-9]+)?|not installed)'.freeze
+
+  V_REGEXP = "#{REPL_REGEXP} \\(#{RLWRAP_REGEXP}\\)".freeze
 
   def self.v_regexp
     @v_regexp ||= Regexp.compile(V_REGEXP)
