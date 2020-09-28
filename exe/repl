@@ -6,7 +6,7 @@ require 'shellwords'
 require 'io/console'
 
 if ARGV.delete('--version')
-  IO.console.puts 'repl 0.9.0 (rlwrap 0.43)'
+  IO.console.puts 'repl 0.10.0 (rlwrap 0.43)'
   exit(0)
 end
 
