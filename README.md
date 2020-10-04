@@ -66,9 +66,13 @@ COMING SOON
 
 The following environment variables can be used to override `repl`'s defaults:
 
-* `REPL_PROMPT`: prompt to use in `repl`'s read-eval-print loop (default: `>> `)
+* `REPL_PROMPT`: prompt to use in `repl`'s read-eval-print loop (default: `>>`)
+* `REPL_DEBUG` : equivalent to the `--debug` option if set to true (default: false)
+* `REPL_CLEAR` : equivalent to the `--clear` option if set to true (default: false)
 * `REPL_HISTORY_DIR`: directory in which history files are kept (default: `${HOME}`)
 * `REPL_COMPLETION_DIR`: directory in which completion files are kept (default: `${HOME}/.repl`)
+
+These options can also be set permantently in `${HOME}/.repl.rc`, instead of "polluting" your shell environment with them; use the [`repl.rc`](repl.rc) template file as a starting point.
 
 ## TODO
 

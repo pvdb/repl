@@ -1,0 +1,20 @@
+#
+# ${HOME}/.repl.rc - repl(1) configuration
+#
+# All commented values are the defaults
+#
+
+# the repl prompt
+# REPL_PROMPT=">>"
+
+# print the expanded command before running it
+# REPL_DEBUG="false"
+
+# clear the screen before running the command
+# REPL_CLEAR="false"
+
+# directory in which history files are kept
+# REPL_HISTORY_DIR="~"
+
+# directory in which completion files are kept
+# REPL_COMPLETION_DIR="~/.repl"

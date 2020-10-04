@@ -5,6 +5,20 @@ require 'fileutils'
 require 'shellwords'
 require 'io/console'
 
+class String
+  def colorize(color_code)
+    "\e[#{color_code}m#{self}\e[0m"
+  end
+
+  def true?
+    self == 'true'
+  end
+
+  def comment?
+    start_with? '#'
+  end
+end
+
 if ARGV.delete('--version')
   IO.console.puts 'repl 0.10.0 (rlwrap 0.43)'
   exit(0)
@@ -22,6 +36,19 @@ end
 
 # list of remaining options/flags
 OPTIONS = %w[--stdin --printf --escape --debug --clear].freeze
+
+# merge "${HOME}/.repl.rc" into ENV
+if File.file? repl_rc = File.join(Dir.home, '.repl.rc')
+  unless ENV['__REPL_RLWRAP__']
+    File.readlines(repl_rc).map(&:strip).each do |line|
+      next if line.empty?
+      next if line.comment?
+
+      key, value = line.chomp.split('=')
+      ENV[key] = value[1..-2] # strip double quotes
+    end
+  end
+end
 
 if MakeMakefile.find_executable0('rlwrap')
   unless ENV['__REPL_RLWRAP__']
@@ -52,18 +79,12 @@ if MakeMakefile.find_executable0('rlwrap')
   end
 end
 
-class String
-  def colorize(color_code)
-    "\e[#{color_code}m#{self}\e[0m"
-  end
-end
-
 # process the options
 stdin  = ARGV.delete('--stdin')
 escape = ARGV.delete('--escape')
 printf = ARGV.delete('--printf')
-debug  = ARGV.delete('--debug')
-clear  = ARGV.delete('--clear')
+debug  = ARGV.delete('--debug') || ENV['REPL_DEBUG']&.true?
+clear  = ARGV.delete('--clear') || ENV['REPL_CLEAR']&.true?
 
 # command is whatever's left
 if (cmd_string = ARGV.join(' ').strip).empty?
