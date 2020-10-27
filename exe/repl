@@ -5,6 +5,12 @@ require 'fileutils'
 require 'shellwords'
 require 'io/console'
 
+module Kernel
+  def which(executable)
+    MakeMakefile.find_executable0(executable)
+  end
+end
+
 class String
   def colorize(color_code)
     "\e[#{color_code}m#{self}\e[0m"
@@ -52,7 +58,7 @@ end
 
 # replace process with `rlwrap`-ed version
 unless ENV['__REPL_RLWRAP__']
-  if MakeMakefile.find_executable0('rlwrap')
+  if (rlwrap_exec = which('rlwrap'))
     rlwrap_args = []
 
     unless (base_cmd = (ARGV - OPTIONS).map(&:strip).first).empty?
@@ -76,7 +82,7 @@ unless ENV['__REPL_RLWRAP__']
     end
 
     ENV['__REPL_RLWRAP__'] = Process.pid.to_s
-    exec("rlwrap #{rlwrap_args.join(' ')} #{$PROGRAM_NAME} #{ARGV.join(' ')}")
+    exec("#{rlwrap_exec} #{rlwrap_args.join(' ')} #{$PROGRAM_NAME} #{ARGV.join(' ')}")
   end
 end
 
@@ -94,7 +100,7 @@ if (cmd_string = ARGV.join(' ').strip).empty?
 end
 
 cmd_template = if stdin
-                 pipe_cmd = printf ? '/usr/bin/printf' : '/bin/echo'
+                 pipe_cmd = which(printf ? 'printf' : 'echo')
                  "#{pipe_cmd} \"%s\" | #{cmd_string}"
                elsif ARGV.grep(/%s/).any?
                  cmd_string # the '%s' is embedded
