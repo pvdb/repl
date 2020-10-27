@@ -8,6 +8,9 @@
 # REPL_PROMPT=">>"
 
 # print the expanded command before running it
+# REPL_ESCAPE="false"
+
+# print the expanded command before running it
 # REPL_DEBUG="false"
 
 # clear the screen before running the command

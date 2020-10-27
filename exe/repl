@@ -88,8 +88,8 @@ end
 
 # process the options
 stdin  = ARGV.delete('--stdin')
-escape = ARGV.delete('--escape')
 printf = ARGV.delete('--printf')
+escape = ARGV.delete('--escape') || ENV['REPL_ESCAPE']&.true?
 debug  = ARGV.delete('--debug') || ENV['REPL_DEBUG']&.true?
 clear  = ARGV.delete('--clear') || ENV['REPL_CLEAR']&.true?
 

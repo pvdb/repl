@@ -67,6 +67,7 @@ COMING SOON
 The following environment variables can be used to override `repl`'s defaults:
 
 * `REPL_PROMPT`: prompt to use in `repl`'s read-eval-print loop (default: `>>`)
+* `REPL_ESCAPE`: equivalent to the `--escape` option if set to true (default: false)
 * `REPL_DEBUG` : equivalent to the `--debug` option if set to true (default: false)
 * `REPL_CLEAR` : equivalent to the `--clear` option if set to true (default: false)
 * `REPL_HISTORY_DIR`: directory in which history files are kept (default: `${HOME}`)
