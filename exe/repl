@@ -50,8 +50,9 @@ if File.file? repl_rc = File.join(Dir.home, '.repl.rc')
   end
 end
 
-if MakeMakefile.find_executable0('rlwrap')
-  unless ENV['__REPL_RLWRAP__']
+# replace process with `rlwrap`-ed version
+unless ENV['__REPL_RLWRAP__']
+  if MakeMakefile.find_executable0('rlwrap')
     rlwrap_args = []
 
     unless (base_cmd = (ARGV - OPTIONS).map(&:strip).first).empty?
