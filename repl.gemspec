@@ -1,6 +1,4 @@
-lib = File.expand_path('lib', __dir__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'repl/version'
+require_relative 'lib/repl/version'
 
 Gem::Specification.new do |spec|
   spec.name          = Repl::NAME
@@ -10,7 +8,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Sometimes you need a REPL.'
   spec.description   = 'Complete rewrite of the awesome defunct/repl'
-  spec.homepage      = 'https://github.com/pvdb/consenter'
+  spec.homepage      = 'https://github.com/pvdb/repl'
   spec.license       = 'MIT'
 
   spec.required_ruby_version = ['>= 2.6.0', '< 2.7.0']
@@ -29,5 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry', '~> 0.13'
   spec.add_development_dependency 'pry-rescue', '~> 1.5'
   spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rubocop', '~> 1.0'
+  spec.add_development_dependency 'rubocop', '~> 1.7'
+  spec.add_development_dependency 'rubocop-minitest', '~> 0.10'
+  spec.add_development_dependency 'rubocop-rake', '~> 0.5'
 end

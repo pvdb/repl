@@ -5,7 +5,7 @@ class ReplTest < Minitest::Test
     refute_nil ::Repl::NAME
   end
 
-  def test_that_it_has_a_version_number
+  def test_that_it_has_a_version
     refute_nil ::Repl::VERSION
   end
 

@@ -1,6 +1,7 @@
 # rubocop:disable Style/SymbolArray
 # rubocop:disable Style/HashSyntax
 
+require 'bundler/setup'
 require 'bundler/gem_tasks'
 
 task :validate_gemspec do
