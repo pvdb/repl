@@ -27,9 +27,9 @@ end
 task :default => [:version, :rubocop, :test]
 
 task :documentation do
-  # update version in repl script to match gem version
+  # update script version to match gem version
   repl = Bundler.root.join('exe', 'repl')
-  sed = "/'#{Repl::V_REGEXP}'/s/#{Repl::V_REGEXP}/#{Repl.version}/"
+  sed = "s/repl [0-9]+\.[0-9]+\.[0-9]+/#{Repl.repl_version}/"
   system "sed -E -i \'\' -e \"#{sed}\" #{repl}"
 end
 

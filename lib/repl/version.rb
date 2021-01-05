@@ -13,15 +13,17 @@ module Repl
   end
 
   def self.version
-    "#{repl_version} (#{rlwrap_version})"
+    @version ||= "#{repl_version} (#{rlwrap_version})"
   end
 
-  REPL_REGEXP = 'repl [0-9]+\.[0-9]+(\.[0-9]+)?'.freeze
-  RLWRAP_REGEXP = 'rlwrap ([0-9]+\.[0-9]+(\.[0-9]+)?|not installed)'.freeze
+  SEMVER_REGEXP = '\d+\.\d+(\.\d+)?'.freeze
 
-  V_REGEXP = "#{REPL_REGEXP} \\(#{RLWRAP_REGEXP}\\)".freeze
+  REPL_VERSION = "repl #{SEMVER_REGEXP}".freeze
+  RLWRAP_VERSION = "rlwrap (#{SEMVER_REGEXP}|not installed)".freeze
 
-  def self.v_regexp
-    @v_regexp ||= Regexp.compile(V_REGEXP)
+  VERSION_REGEXP = "#{REPL_VERSION} \\(#{RLWRAP_VERSION}\\)".freeze
+
+  def self.version_regexp
+    @version_regexp ||= Regexp.compile(VERSION_REGEXP)
   end
 end

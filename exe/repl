@@ -9,6 +9,12 @@ module Kernel
   def which(executable)
     MakeMakefile.find_executable0(executable)
   end
+
+  def rlwrap_version
+    `rlwrap --version`.chomp
+  rescue Errno::ENOENT
+    'rlwrap not installed'
+  end
 end
 
 class String
@@ -26,7 +32,7 @@ class String
 end
 
 if ARGV.delete('--version')
-  IO.console.puts 'repl 0.10.0 (rlwrap 0.43)'
+  IO.console.puts "repl 0.10.0 (#{rlwrap_version})"
   exit(0)
 end
 

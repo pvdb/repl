@@ -9,8 +9,13 @@ class ReplTest < Minitest::Test
     refute_nil ::Repl::VERSION
   end
 
-  def test_that_version_matches_regexp
-    assert_match Repl.v_regexp, Repl.version
+  def test_that_version_regexp_is_correct
+    assert_match Repl.version_regexp, 'repl 0.10.0 (rlwrap 0.43)'
+    assert_match Repl.version_regexp, 'repl 0.10.0 (rlwrap not installed)'
+  end
+
+  def test_that_version_matches_version_regexp
+    assert_match Repl.version_regexp, Repl.version
   end
 
   def test_it_does_something_useful
