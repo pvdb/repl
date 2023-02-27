@@ -34,6 +34,15 @@ task :documentation do
   sed = "s/repl [0-9]+\.[0-9]+\.[0-9]+/#{Repl.repl_version}/"
   system "sed -E -i \'\' -e \"#{sed}\" #{repl}"
   # rubocop:enable Style/RedundantStringEscape
+
+  # generate ROFF and HTML versions of man page
+  ronn = Bundler.root.join('man', 'repl.1.ronn')
+  options = [
+    '--organization=PVDB',
+    '--manual="Awesome Utilities"',
+    "--date=#{File.mtime(Bundler.root).strftime('%F')}",
+  ].join(' ')
+  system "ronn --roff --html #{options} #{ronn}"
 end
 
 task :ready => :documentation do
