@@ -19,6 +19,8 @@ class ReplTest < Minitest::Test
   end
 
   def test_it_does_something_useful
+    # rubocop:disable Minitest/UselessAssertion
     assert true # you better believe it!
+    # rubocop:enable Minitest/UselessAssertion
   end
 end

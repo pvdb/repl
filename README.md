@@ -1,10 +1,10 @@
-# repl(1) -- sometimes you *really* need a REPL
+# repl(1) -- sometimes you _really_ need a REPL
 
-`repl` wraps non-interactive commands in an interactive REPL _(read-eval-print loop)_.
+`repl` wraps a non-interactive command in an interactive REPL _(read-eval-print loop)_.
 
 ## Synopsis
 
-    repl [options] command ...
+    repl [options] command <...>
 
 `command` is executed using the lines you type into `repl`'s prompt as either command-line arguments or else as standard input, and anything written by `command` to standard output and standard error is displayed.
 
@@ -25,7 +25,27 @@ This is repeated until you exit out of `repl`'s interactive loop by using either
     >> ^D
     $ _
 
-It can be used with commands you wish had an interactive mode, but don't:
+It can be used with commands you wish had an interactive mode, but don't, like `gem`:
+
+    $ repl gem
+    >> --version
+    3.0.3
+    
+    >> sources
+    *** CURRENT SOURCES ***
+    
+    https://rubygems.org/
+    
+    >> search '^repl$'
+    
+    *** REMOTE GEMS ***
+    
+    repl (1.0.0)
+    
+    >> ^D
+    $ _
+
+Or system utilities like `host`:
 
     $ repl host -t A
     >> google.com

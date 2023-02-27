@@ -1,3 +1,10 @@
+require:
+  - rubocop-minitest
+  - rubocop-rake
+
+Rake/Desc:
+  Enabled: false
+
 Metrics/BlockNesting:
   Enabled: false
 
@@ -6,6 +13,8 @@ Style/Documentation:
 Style/SoleNestedConditional:
   Enabled: false
 Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/TrailingCommaInArrayLiteral:
   Enabled: false
 
 #

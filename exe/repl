@@ -32,13 +32,18 @@ class String
 end
 
 if ARGV.delete('--version')
-  IO.console.puts "repl 0.10.0 (#{rlwrap_version})"
+  IO.console.puts "repl 0.11.0 (#{rlwrap_version})"
   exit(0)
 end
 
 if ARGV.delete('--help') || ARGV.empty?
   IO.console.puts DATA.read
   exit(0)
+end
+
+if ARGV.delete('--html')
+  exec "open #{File.join(__dir__, '..', 'man', 'repl.1.html')}"
+  exit(0) # superfluous, really...
 end
 
 if ARGV.delete('--man')
@@ -159,6 +164,10 @@ Options:
   --escape  Shell escape user's input
   --debug   Display each command executed
   --clear   Clear terminal after each command
+
+Homepage:
+
+  http://github.com/pvdb/repl
 
 Bug reports, suggestions, updates:
 
