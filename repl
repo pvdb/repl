@@ -42,12 +42,12 @@ if ARGV.delete('--help') || ARGV.empty?
 end
 
 if ARGV.delete('--html')
-  exec "open #{File.join(__dir__, '..', 'man', 'repl.1.html')}"
+  exec "open #{File.join(__dir__, 'repl.1.html')}"
   exit(0) # superfluous, really...
 end
 
 if ARGV.delete('--man')
-  exec "man #{File.join(__dir__, '..', 'man', 'repl.1')}"
+  exec "man #{File.join(__dir__, 'repl.1')}"
   exit(0) # superfluous, really...
 end
 

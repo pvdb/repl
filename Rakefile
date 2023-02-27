@@ -28,7 +28,7 @@ task :default => [:version, :rubocop, :test]
 
 task :documentation do
   # update script version to match gem version
-  repl = Bundler.root.join('exe', 'repl')
+  repl = Bundler.root.join('repl')
 
   # rubocop:disable Style/RedundantStringEscape
   sed = "s/repl [0-9]+\.[0-9]+\.[0-9]+/#{Repl.repl_version}/"
@@ -36,7 +36,7 @@ task :documentation do
   # rubocop:enable Style/RedundantStringEscape
 
   # generate ROFF and HTML versions of man page
-  ronn = Bundler.root.join('man', 'repl.1.ronn')
+  ronn = Bundler.root.join('repl.1.ronn')
   options = [
     '--organization=PVDB',
     '--manual="Awesome Utilities"',
