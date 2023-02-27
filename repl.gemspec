@@ -11,7 +11,9 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/pvdb/repl'
   spec.license       = 'MIT'
 
-  spec.required_ruby_version = ['>= 2.6.0', '< 2.7.0']
+  spec.metadata['rubygems_mfa_required'] = 'true'
+
+  spec.required_ruby_version = ['>= 2.7.0', '< 3.0.0']
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`
