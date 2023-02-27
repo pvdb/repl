@@ -41,6 +41,11 @@ if ARGV.delete('--help') || ARGV.empty?
   exit(0)
 end
 
+if ARGV.delete('--html')
+  exec "open #{File.join(__dir__, '..', 'man', 'repl.1.html')}"
+  exit(0) # superfluous, really...
+end
+
 if ARGV.delete('--man')
   exec "man #{File.join(__dir__, '..', 'man', 'repl.1')}"
   exit(0) # superfluous, really...
@@ -159,6 +164,10 @@ Options:
   --escape  Shell escape user's input
   --debug   Display each command executed
   --clear   Clear terminal after each command
+
+Homepage:
+
+  http://github.com/pvdb/repl
 
 Bug reports, suggestions, updates:
 
