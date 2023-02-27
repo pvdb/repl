@@ -254,7 +254,37 @@ By using the `--escape` option, `repl` can be made to escape shell constructs in
 
 ## Features
 
-COMING SOON
+Features of and improvements in this new version of `repl`:
+
+### new options
+
+1. `--version` - print the `repl` version info
+   * example: `repl --version`
+1. `--html` - open the `repl` man page in web browser
+   * example: `repl --html`
+1. `--clear` - clear terminal before the next eval
+   * example: `repl --clear echo`
+1. `--escape` - shell escape user's input
+   * example: compare `repl echo <<<'Peter "The Rock" V.'` with `repl --escape echo <<<'Peter "The Rock" V.'`
+1. `--printf` - causes `--stdin` to use `/usr/bin/printf` instead of `/bin/echo` to avoid adding superfluous trailing newline characters
+   * example: compare `repl --debug --stdin wc -c <<<"blegga"` with `repl --debug --stdin --printf wc -c <<<"blegga"`
+
+### improved options
+1. `--debug` - now works correctly in conjunction with `--stdin`
+   * example: `repl --stdin --debug wc -c` using [defunkt/repl][] doesn't work
+
+### `rlwrap` improvements
+
+1. explicitly ignore options/flags for calculating history and completion files
+1. use `MakeMakefile.find_executable0()` instead of `which(1)` to find `rlwrap`
+1. set `__REPL_RLWRAP__` to the PID of the parent `repl` process, instead of `0`
+
+### command processing
+
+1. all prompts, debug and error messages are written to `IO.console` (not `STDOUT`) for pipelining purposes
+   * example: `repl --debug echo > blegga; cat blegga`
+1. support for multiple embedded `%s` placeholders in the command string, not just one
+   * example: `repl diff source_dir/%s target_dir/%s`
 
 ## Configuration
 
@@ -271,7 +301,16 @@ These options can also be set permantently in `${HOME}/.repl.rc`, instead of "po
 
 ## TODO
 
-COMING SOON
+Features from the original version that aren't supported yet:
+
+1. customizable repl prompt, via the `REPL_PROMPT` environment variable
+
+Potential improvements to this new version:
+
+1. add `README.md` instructions for "Standalone Installation"
+1. update and improve the usage instructions and examples
+1. update and improve the man page, incl. `rake` support
+1. make `--escape` the default, and/or add `--no-escape`
 
 ## Development
 
