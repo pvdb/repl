@@ -32,7 +32,7 @@ class String
 end
 
 if ARGV.delete('--version')
-  IO.console.puts "repl 0.10.0 (#{rlwrap_version})"
+  IO.console.puts "repl 0.11.0 (#{rlwrap_version})"
   exit(0)
 end
 
