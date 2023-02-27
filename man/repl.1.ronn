@@ -1,9 +1,9 @@
-repl(1) - sometimes you need a repl
-===================================
+repl(1) - sometimes you _really_ need a repl
+============================================
 
 ## SYNOPSIS
 
-`repl` <[repl-options]> <command> <...>
+`repl` <[options]> <command> <...>
 
 ## DESCRIPTION
 
@@ -122,25 +122,48 @@ The directory searched for history files can be configured using the
 
 ### REPL_PROMPT
 
-the prompt to display before each line of input. defaults to >>
+the prompt to display before each line of input (defaults to `>>`)
 
-### REPL_COMPLETION_DIR
+### REPL_ESCAPE
 
-directory in which completion files are kept
+"shell escape" input lines before invoking command
+
+### REPL_DEBUG
+
+print out the expanded command before executing it
+
+### REPL_CLEAR
+
+clear the TTY console before running each command
 
 ### REPL_HISTORY_DIR
 
 directory in which command history files are kept
 
+### REPL_COMPLETION_DIR
+
+directory in which command completion files are kept
+
+## HOMEPAGE
+
+<http://github.com/pvdb/repl>
+
+You will find many more practical examples there!
+
 ## BUGS
 
-<http://github.com/defunkt/repl/issues>
+<http://github.com/pvdb/repl/issues>
 
 ## AUTHOR
 
-Chris Wanstrath :: chris@ozmm.org :: @defunkt
+Peter Vandenberk :: [@pvdb](https://github.com/pvdb)
+
+## CREDITS
+
+Chris Wanstrath :: [@defunkt](https://github.com/defunkt)
+
+Check out his (awesome, but unmaintained) [original version](https://github.com/defunkt/repl) on which this one is based!
 
 ## SEE ALSO
 
-rlwrap(1), readline(3), <http://github.com>,
-<http://github.com/defunkt/repl>
+rlwrap(1), readline(3)
