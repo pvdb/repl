@@ -303,7 +303,6 @@ These options can also be set permantently in `${HOME}/.repl.rc`, instead of "po
 
 Potential improvements to this new version:
 
-1. add `README.md` instructions for "Standalone Installation"
 1. update and improve the usage instructions and examples
 1. update and improve the man page, incl. `rake` support
 1. make `--escape` the default, and/or add `--no-escape`
