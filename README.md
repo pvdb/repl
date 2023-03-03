@@ -301,10 +301,6 @@ These options can also be set permantently in `${HOME}/.repl.rc`, instead of "po
 
 ## TODO
 
-Features from the original version that aren't supported yet:
-
-1. customizable repl prompt, via the `REPL_PROMPT` environment variable
-
 Potential improvements to this new version:
 
 1. add `README.md` instructions for "Standalone Installation"
