@@ -21,8 +21,8 @@ jobs:
         run: |
           git ls-files -t ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-    steps:
-      - uses: mshick/add-pr-comment@v2
+      - name: Post PR Comment
+        uses: mshick/add-pr-comment@v2
         with:
           message: |
             **Hello**
