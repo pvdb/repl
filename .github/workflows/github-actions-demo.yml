@@ -1,9 +1,13 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
+env:
+  FOO: foo
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
+    env:
+      BAR: bar
     permissions:
       pull-requests: write
     steps:
@@ -23,6 +27,8 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Post PR Comment
         uses: mshick/add-pr-comment@v2
+        env:
+          QUX: qux
         with:
           refresh-message-position: true
           message: |
@@ -30,3 +36,6 @@ jobs:
             __World__
             🌏
             !
+            FOO=${{ env.FOO }}
+            BAR=${{ env.BAR }}
+            QUX=${{ env.QUX }}
