@@ -26,5 +26,6 @@ jobs:
         with:
           message: |
             **Hello**
+            __World__
             🌏
             !
