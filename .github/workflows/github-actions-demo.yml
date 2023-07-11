@@ -39,3 +39,5 @@ jobs:
             FOO=${{ env.FOO }}
             BAR=${{ env.BAR }}
             QUX=${{ env.QUX }}
+          message-success: ✅
+          message-failure: ❌
