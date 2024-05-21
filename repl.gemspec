@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata['rubygems_mfa_required'] = 'true'
 
-  spec.required_ruby_version = ['>= 2.7.0', '< 3.0.0']
+  spec.required_ruby_version = ['>= 3.2.0', '< 4.0.0']
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`
@@ -26,11 +26,11 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'minitest', '~> 5.0'
-  spec.add_development_dependency 'pry', '~> 0.13'
-  spec.add_development_dependency 'pry-rescue', '~> 1.5'
+  spec.add_development_dependency 'pry', '~> 0.14'
+  spec.add_development_dependency 'pry-rescue', '~> 1.6'
   spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'ronn', '~> 0.7'
-  spec.add_development_dependency 'rubocop', '~> 1.7'
-  spec.add_development_dependency 'rubocop-minitest', '~> 0.10'
-  spec.add_development_dependency 'rubocop-rake', '~> 0.5'
+  # spec.add_development_dependency 'ronn', '~> 0.7'
+  spec.add_development_dependency 'rubocop', '~> 1.63'
+  spec.add_development_dependency 'rubocop-minitest', '~> 0.35'
+  spec.add_development_dependency 'rubocop-rake', '~> 0.6'
 end
