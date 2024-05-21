@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry', '~> 0.14'
   spec.add_development_dependency 'pry-rescue', '~> 1.6'
   spec.add_development_dependency 'rake', '~> 13.0'
-  # spec.add_development_dependency 'ronn', '~> 0.7'
+  spec.add_development_dependency 'ronn-ng', '~> 0.10'
   spec.add_development_dependency 'rubocop', '~> 1.63'
   spec.add_development_dependency 'rubocop-minitest', '~> 0.35'
   spec.add_development_dependency 'rubocop-rake', '~> 0.6'
