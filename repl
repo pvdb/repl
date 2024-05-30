@@ -22,6 +22,13 @@ class String
     "\e[#{color_code}m#{self}\e[0m"
   end
 
+  def bold()   colorize('1'); end
+  def invert() colorize('7'); end
+
+  def red()   colorize('31'); end
+  def blue()  colorize('34'); end
+  def green() colorize('32'); end
+
   def true?
     self == 'true'
   end
@@ -120,7 +127,7 @@ cmd_template = if stdin
                end
 
 default_prompt = debug ? cmd_template : cmd_string
-default_prompt = default_prompt.colorize(1) # bold
+default_prompt = default_prompt.bold
 default_prompt = "#{default_prompt} >>".freeze
 
 repl_prompt = "#{ENV.fetch('REPL_PROMPT', default_prompt)} "

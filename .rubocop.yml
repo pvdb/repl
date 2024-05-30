@@ -10,6 +10,8 @@ Metrics/BlockNesting:
 
 Style/Documentation:
   Enabled: false
+Style/SingleLineMethods:
+  Enabled: false
 Style/SoleNestedConditional:
   Enabled: false
 Style/FrozenStringLiteralComment:
