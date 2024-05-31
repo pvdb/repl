@@ -10,12 +10,16 @@ require 'fileutils'
 require 'shellwords'
 require 'io/console'
 
+##
+# script-specific Kernel extension
 module Kernel
   def which(executable)
     MakeMakefile.find_executable0(executable)
   end
 end
 
+##
+# script-specific String extensions
 class String
   def colorize(color_code)
     "\e[#{color_code}m#{self}\e[0m"
@@ -39,12 +43,16 @@ class String
   end
 end
 
+##
+# version of rlwrap utility
 def rlwrap_version
   `rlwrap --version`.chomp
 rescue Errno::ENOENT
   'rlwrap not installed'
 end
 
+##
+# version of repl script
 def repl_version
   "#{REPL_NAME} #{REPL_VERSION} (#{rlwrap_version})"
 end
@@ -72,6 +80,8 @@ end
 # list of remaining options/flags
 OPTIONS = %w[--stdin --printf --escape --debug --clear].freeze
 
+##
+# is repl running "inside" rlwrap?
 def repl_wrapped?
   !ENV['__REPL_RLWRAP__'].nil?
 end
@@ -153,17 +163,19 @@ default_prompt = "#{default_prompt} >>".freeze
 repl_prompt = ENV.fetch('REPL_PROMPT', default_prompt)
 
 loop do
+  # prompt user for cmd arguments
   IO.console.print(repl_prompt, ' ')
 
   line = begin
-    $stdin.gets&.strip
+    $stdin.gets&.strip # nil when ^D
   rescue Interrupt
-    nil
+    nil # Interrupt is raised for ^C
   end
 
-  break unless line
+  break unless line # ^C / ^D / EOF
 
   line = Shellwords.escape(line) if escape
+
   # command = format(cmd_template, line)  # expand single '%s' placeholder
   command = cmd_template.gsub('%s', line) # expand _all_ '%s' placeholders
 
@@ -176,7 +188,9 @@ loop do
     IO.console.print 'system(\'', command.blue, '\'): '
     IO.console.puts $ERROR_INFO.message.red
   end
-  IO.console.puts # empty separator line
+
+  # empty separator line
+  IO.console.puts
 end
 
 exit(0) # cleanly exit repl
