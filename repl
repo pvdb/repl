@@ -150,10 +150,10 @@ default_prompt = debug ? cmd_template : cmd_string
 default_prompt = default_prompt.bold
 default_prompt = "#{default_prompt} >>".freeze
 
-repl_prompt = "#{ENV.fetch('REPL_PROMPT', default_prompt)} "
+repl_prompt = ENV.fetch('REPL_PROMPT', default_prompt)
 
 loop do
-  IO.console.print repl_prompt
+  IO.console.print(repl_prompt, ' ')
 
   line = begin
     $stdin.gets&.strip
