@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+REPL_NAME = 'repl'
+REPL_VERSION = '0.12.0' # match with `lib/repl/version.rb`
+
 require 'mkmf'
 require 'English'
 require 'fileutils'
@@ -43,7 +46,7 @@ rescue Errno::ENOENT
 end
 
 def repl_version
-  "repl 0.12.0 (#{rlwrap_version})"
+  "#{REPL_NAME} #{REPL_VERSION} (#{rlwrap_version})"
 end
 
 if ARGV.delete('--version')
