@@ -37,11 +37,13 @@ task :documentation do
 
   # generate ROFF and HTML versions of man page
   ronn = Bundler.root.join('repl.1.ronn')
+  # rubocop:disable Style/TrailingCommaInArrayLiteral
   options = [
     '--organization=PVDB',
     '--manual="Awesome Utilities"',
     "--date=#{File.mtime(Bundler.root).strftime('%F')}",
   ].join(' ')
+  # rubocop:enable Style/TrailingCommaInArrayLiteral
   system "ronn --roff --html #{options} #{ronn}"
 end
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'mkmf'
 require 'English'
@@ -17,12 +18,14 @@ class String
     "\e[#{color_code}m#{self}\e[0m"
   end
 
+  # rubocop:disable Style/SingleLineMethods
   def bold()   colorize('1'); end
   def invert() colorize('7'); end
 
   def red()   colorize('31'); end
   def blue()  colorize('34'); end
   def green() colorize('32'); end
+  # rubocop:enable Style/SingleLineMethods
 
   def true?
     self == 'true'
@@ -91,6 +94,7 @@ unless repl_wrapped?
   if (rlwrap_exec = which('rlwrap'))
     rlwrap_args = []
 
+    # rubocop:disable Metrics/BlockNesting
     unless (base_cmd = (ARGV - OPTIONS).map(&:strip).first).empty?
       base_cmd = File.basename(base_cmd)
 
@@ -110,6 +114,7 @@ unless repl_wrapped?
         rlwrap_args += ['-f', completion_file] if File.exist? completion_file
       end
     end
+    # rubocop:enable Metrics/BlockNesting
 
     ENV['__REPL_RLWRAP__'] = Process.pid.to_s
     exec("#{rlwrap_exec} #{rlwrap_args.join(' ')} #{$PROGRAM_NAME} #{ARGV.join(' ')}")

@@ -5,18 +5,9 @@ require:
 Rake/Desc:
   Enabled: false
 
-Metrics/BlockNesting:
-  Enabled: false
-
 Style/Documentation:
   Enabled: false
-Style/SingleLineMethods:
-  Enabled: false
-Style/SoleNestedConditional:
-  Enabled: false
 Style/FrozenStringLiteralComment:
-  Enabled: false
-Style/TrailingCommaInArrayLiteral:
   Enabled: false
 
 #
