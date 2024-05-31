@@ -169,6 +169,7 @@ Options:
   --version Display the repl version
   --help    Display this message
   --man     Display the man page
+  --html    Open HTML version of man page
   --stdin   Pipe input to command's STDIN
   --printf  Avoid newline chars in STDIN
   --escape  Shell escape user's input
