@@ -23,14 +23,4 @@ Gem::Specification.new do |spec|
   spec.bindir        = '.'
   spec.executables   = ['repl']
   spec.require_paths = ['lib']
-
-  spec.add_development_dependency 'bundler', '~> 2.0'
-  spec.add_development_dependency 'minitest', '~> 5.0'
-  spec.add_development_dependency 'pry', '~> 0.14'
-  spec.add_development_dependency 'pry-rescue', '~> 1.6'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'ronn-ng', '~> 0.10'
-  spec.add_development_dependency 'rubocop', '~> 1.63'
-  spec.add_development_dependency 'rubocop-minitest', '~> 0.35'
-  spec.add_development_dependency 'rubocop-rake', '~> 0.6'
 end
