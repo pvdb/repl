@@ -78,7 +78,12 @@ unless repl_wrapped?
       next if line.comment?
 
       key, value = line.chomp.split('=')
-      ENV[key] = value[1..-2] # strip double quotes
+
+      # strip surrounding quotes
+      value.delete_prefix!('"')
+      value.delete_suffix!('"')
+
+      ENV[key] = value
     end
   end
 
