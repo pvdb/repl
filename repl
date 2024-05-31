@@ -62,9 +62,9 @@ end
 # list of remaining options/flags
 OPTIONS = %w[--stdin --printf --escape --debug --clear].freeze
 
-# merge "${HOME}/.repl.rc" into ENV
-if File.file? repl_rc = File.join(Dir.home, '.repl.rc')
-  unless ENV['__REPL_RLWRAP__']
+unless ENV['__REPL_RLWRAP__']
+  # merge "${HOME}/.repl.rc" into ENV
+  if File.file? repl_rc = File.join(Dir.home, '.repl.rc')
     File.readlines(repl_rc).map(&:strip).each do |line|
       next if line.empty?
       next if line.comment?
@@ -73,10 +73,8 @@ if File.file? repl_rc = File.join(Dir.home, '.repl.rc')
       ENV[key] = value[1..-2] # strip double quotes
     end
   end
-end
 
-# replace process with `rlwrap`-ed version
-unless ENV['__REPL_RLWRAP__']
+  # replace process with `rlwrap`-ed version
   if (rlwrap_exec = which('rlwrap'))
     rlwrap_args = []
 
