@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 REPL_NAME = 'repl'
-REPL_VERSION = '0.12.0' # match with `lib/repl/version.rb`
+REPL_VERSION = '1.0.0' # match with `lib/repl/version.rb`
 
 require 'mkmf'
 require 'English'

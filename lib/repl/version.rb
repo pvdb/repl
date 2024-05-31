@@ -1,6 +1,6 @@
 module Repl
   NAME = 'repl'.freeze
-  VERSION = '0.12.0'.freeze
+  VERSION = '1.0.0'.freeze
 
   def self.repl_version
     "#{NAME} #{VERSION}"

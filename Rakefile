@@ -10,6 +10,7 @@ end
 
 task :version => :validate_gemspec do
   puts Repl.version
+  puts `#{Bundler.root.join('repl')} --version`.chomp
 end
 
 require 'rubocop/rake_task'
