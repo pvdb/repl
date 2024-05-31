@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'mkmf'
+require 'English'
 require 'fileutils'
 require 'shellwords'
 require 'io/console'
@@ -150,9 +151,11 @@ loop do
   IO.console.puts "\e[H\e[2J"    if clear
   IO.console.puts "$ #{command}" if debug
 
-  if system(command).nil?
-    IO.console.print 'system("', command, '"): ' unless debug
-    IO.console.puts '<Errno::ENOENT>'.red
+  begin
+    system(command, exception: true)
+  rescue RuntimeError, Errno::ENOENT
+    IO.console.print 'system(\'', command.blue, '\'): '
+    IO.console.puts $ERROR_INFO.message.red
   end
   IO.console.puts # empty separator line
 end
