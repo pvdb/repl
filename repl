@@ -10,12 +10,6 @@ module Kernel
   def which(executable)
     MakeMakefile.find_executable0(executable)
   end
-
-  def rlwrap_version
-    `rlwrap --version`.chomp
-  rescue Errno::ENOENT
-    'rlwrap not installed'
-  end
 end
 
 class String
@@ -37,6 +31,12 @@ class String
   def comment?
     start_with? '#'
   end
+end
+
+def rlwrap_version
+  `rlwrap --version`.chomp
+rescue Errno::ENOENT
+  'rlwrap not installed'
 end
 
 if ARGV.delete('--version')
