@@ -108,6 +108,7 @@ unless repl_wrapped?
     rlwrap_args = []
 
     # rubocop:disable Metrics/BlockNesting
+    # rubocop:disable Style/SoleNestedConditional
     unless (base_cmd = (ARGV - OPTIONS).map(&:strip).first).empty?
       base_cmd = File.basename(base_cmd)
 
@@ -123,10 +124,12 @@ unless repl_wrapped?
       completion_dir = ENV['REPL_COMPLETION_DIR'] || default_completion_dir
 
       if File.directory? completion_dir = File.expand_path(completion_dir)
-        completion_file = File.join(completion_dir, base_cmd)
-        rlwrap_args += ['-f', completion_file] if File.exist? completion_file
+        if File.exist? completion_file = File.join(completion_dir, base_cmd)
+          rlwrap_args += ['-f', completion_file]
+        end
       end
     end
+    # rubocop:enable Style/SoleNestedConditional
     # rubocop:enable Metrics/BlockNesting
 
     ENV['__REPL_RLWRAP__'] = Process.pid.to_s
