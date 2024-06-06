@@ -62,7 +62,7 @@ if ARGV.delete('--version')
   exit(0)
 end
 
-if ARGV.delete('--help') || ARGV.empty?
+if ARGV.delete('--help')
   IO.console.puts DATA.read
   exit(0)
 end
@@ -109,7 +109,7 @@ unless repl_wrapped?
 
     # rubocop:disable Metrics/BlockNesting
     # rubocop:disable Style/SoleNestedConditional
-    unless (base_cmd = (ARGV - OPTIONS).map(&:strip).first).empty?
+    unless (base_cmd = (ARGV - OPTIONS).map(&:strip).first).nil?
       base_cmd = File.basename(base_cmd)
 
       default_history_dir = Dir.home
