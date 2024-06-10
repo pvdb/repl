@@ -159,15 +159,18 @@ cmd_template = if stdin
                  "#{cmd_string} %s"
                end
 
-prompt_prefix = (repl_wrapped? ? '↪' : '↳')
-prompt_suffix = '>>'
+cmd_prompt = if debug
+               if repl_wrapped?
+                 "rlwrap(repl(#{cmd_template.inspect.bold}))"
+               else
+                 "repl(#{cmd_template.inspect.bold})"
+               end
+             else
+               cmd_template.inspect
+             end
 
-default_prompt = debug ? cmd_template : cmd_string
-default_prompt = default_prompt.inspect if debug
-default_prompt = default_prompt.bold
-default_prompt = "#{prompt_prefix} #{default_prompt} #{prompt_suffix}"
-
-repl_prompt = ENV.fetch('REPL_PROMPT', default_prompt)
+repl_prompt = ENV.fetch('REPL_PROMPT', '>>')
+repl_prompt = "#{cmd_prompt} #{repl_prompt}"
 
 loop do
   # prompt user for cmd arguments
