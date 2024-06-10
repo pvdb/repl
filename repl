@@ -133,7 +133,10 @@ unless repl_wrapped?
     # rubocop:enable Metrics/BlockNesting
 
     ENV['__REPL_RLWRAP__'] = Process.pid.to_s
-    exec("#{rlwrap_exec} #{rlwrap_args.join(' ')} #{$PROGRAM_NAME} #{ARGV.join(' ')}")
+
+    repl_wrapped = "#{rlwrap_exec} #{rlwrap_args.join(' ')} #{$PROGRAM_NAME} #{ARGV.join(' ')}"
+
+    exec(repl_wrapped)
   end
 end
 
