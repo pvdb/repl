@@ -110,22 +110,24 @@ unless repl_wrapped?
     # rubocop:disable Metrics/BlockNesting
     # rubocop:disable Style/SoleNestedConditional
     unless (base_cmd = (ARGV - OPTIONS).map(&:strip).first).nil?
-      base_cmd = File.basename(base_cmd)
+      unless which(base_cmd).nil?
+        base_cmd = File.basename(base_cmd)
 
-      default_history_dir = Dir.home
-      history_dir = ENV['REPL_HISTORY_DIR'] || default_history_dir
+        default_history_dir = Dir.home
+        history_dir = ENV['REPL_HISTORY_DIR'] || default_history_dir
 
-      if File.directory? history_dir = File.expand_path(history_dir)
-        history_file = File.join(history_dir, ".#{base_cmd}_history")
-        rlwrap_args += ['-H', history_file]
-      end
+        if File.directory? history_dir = File.expand_path(history_dir)
+          history_file = File.join(history_dir, ".#{base_cmd}_history")
+          rlwrap_args += ['-H', history_file]
+        end
 
-      default_completion_dir = File.join(Dir.home, '.repl')
-      completion_dir = ENV['REPL_COMPLETION_DIR'] || default_completion_dir
+        default_completion_dir = File.join(Dir.home, '.repl')
+        completion_dir = ENV['REPL_COMPLETION_DIR'] || default_completion_dir
 
-      if File.directory? completion_dir = File.expand_path(completion_dir)
-        if File.exist? completion_file = File.join(completion_dir, base_cmd)
-          rlwrap_args += ['-f', completion_file]
+        if File.directory? completion_dir = File.expand_path(completion_dir)
+          if File.exist? completion_file = File.join(completion_dir, base_cmd)
+            rlwrap_args += ['-f', completion_file]
+          end
         end
       end
     end
