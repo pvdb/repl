@@ -166,12 +166,12 @@ cmd_template = if stdin
 
 cmd_prompt = if debug
                if repl_wrapped?
-                 "rlwrap(repl(#{cmd_template.inspect.bold}))"
+                 "rlwrap(repl(\"#{cmd_template.blue}\"))"
                else
-                 "repl(#{cmd_template.inspect.bold})"
+                 "repl(\"#{cmd_template.blue}\")"
                end
              else
-               cmd_template.inspect
+               "\"#{cmd_template.blue}\""
              end
 
 repl_prompt = ENV.fetch('REPL_PROMPT', '>>')
@@ -200,7 +200,7 @@ loop do
   begin
     system(command, exception: true)
   rescue RuntimeError, Errno::ENOENT
-    IO.console.print 'system(\'', command.blue, '\'): '
+    IO.console.print 'system("', command.blue, '"): '
     IO.console.puts $ERROR_INFO.message.red
   end
 
