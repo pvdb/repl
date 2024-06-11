@@ -89,11 +89,11 @@ end
 unless repl_wrapped?
   # merge "${HOME}/.repl.rc" into ENV
   if File.file? repl_rc = File.join(Dir.home, '.repl.rc')
-    File.readlines(repl_rc).map(&:strip).each do |line|
+    File.readlines(repl_rc, chomp: true).each do |line|
       next if line.empty?
       next if line.comment?
 
-      key, value = line.chomp.split('=')
+      key, value = line.split(/\s*=\s*/, 2).map(&:strip)
 
       # strip surrounding quotes
       value.delete_prefix!('"')
