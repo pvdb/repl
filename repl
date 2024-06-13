@@ -78,7 +78,7 @@ if ARGV.delete('--html')
 end
 
 # list of remaining options/flags
-OPTIONS = %w[--stdin --printf --escape --debug --clear].freeze
+OPTIONS = %w[--stdin --printf --escape --debug --clear --quiet].freeze
 
 ##
 # is repl running "inside" rlwrap?
@@ -148,6 +148,7 @@ printf = ARGV.delete('--printf')
 escape = ARGV.delete('--escape') || ENV['REPL_ESCAPE']&.true?
 debug  = ARGV.delete('--debug') || ENV['REPL_DEBUG']&.true?
 clear  = ARGV.delete('--clear') || ENV['REPL_CLEAR']&.true?
+quiet  = ARGV.delete('--quiet') || ENV['REPL_QUIET']&.true?
 
 # command is whatever's left
 if (cmd_string = ARGV.join(' ').strip).empty?
@@ -179,13 +180,16 @@ repl_prompt = "#{cmd_prompt} #{repl_prompt}"
 
 loop do
   # prompt user for cmd arguments
-  IO.console.print(repl_prompt, ' ')
+  IO.console.print(repl_prompt, ' ') if $stdin.tty? || !quiet
 
   line = begin
     $stdin.gets&.strip # nil when ^D
   rescue Interrupt
     nil # Interrupt is raised for ^C
   end
+
+  # echo input if read from stdin pipe
+  IO.console.puts(line) unless $stdin.tty? || quiet
 
   break unless line # ^C / ^D / EOF
 
@@ -223,6 +227,7 @@ Options:
   --escape  Shell escape user's input
   --debug   Display each command executed
   --clear   Clear terminal after each command
+  --quiet   Don't echo the prompt in pipelines
 
 Homepage:
 
