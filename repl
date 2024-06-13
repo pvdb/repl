@@ -176,11 +176,11 @@ cmd_prompt = if debug
              end
 
 repl_prompt = ENV.fetch('REPL_PROMPT', '>>')
-repl_prompt = "#{cmd_prompt} #{repl_prompt}"
+full_prompt = "#{cmd_prompt} #{repl_prompt}"
 
 loop do
   # prompt user for cmd arguments
-  IO.console.print(repl_prompt, ' ') if $stdin.tty? || !quiet
+  IO.console.print(full_prompt, ' ') if $stdin.tty? || !quiet
 
   line = begin
     $stdin.gets&.strip # nil when ^D
@@ -198,8 +198,15 @@ loop do
   # command = format(cmd_template, line)  # expand single '%s' placeholder
   command = cmd_template.gsub('%s', line) # expand _all_ '%s' placeholders
 
-  IO.console.puts "\e[H\e[2J"    if clear
-  IO.console.puts "$ #{command}" if debug
+  if clear
+    # clear terminal screen
+    IO.console.puts "\e[H\e[2J"
+  end
+
+  if debug
+    # print "expanded" command to be executed
+    IO.console.puts "#{repl_prompt} #{command.blue}"
+  end
 
   begin
     system(command, exception: true)
