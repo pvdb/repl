@@ -199,23 +199,35 @@ loop do
   # command = format(cmd_template, line)  # expand single '%s' placeholder
   command = cmd_template.gsub('%s', line) # expand _all_ '%s' placeholders
 
-  if clear
-    # clear terminal screen
-    IO.console.puts "\e[H\e[2J"
-  end
-
-  if debug
-    # print "expanded" command to be executed
-    IO.console.puts "#{repl_prompt} #{command.blue}"
-  end
+  # clear terminal screen
+  IO.console.puts "\e[H\e[2J" if clear
 
   begin
+    if debug
+      # print "expanded" command to be executed
+      padding = 78 - '===[]'.length - command.length
+      IO.console.puts "===[#{command.blue}]#{'=' * padding}"
+    end
+
     tms = Benchmark.measure do
       system(command, exception: true)
     end
+
+    if debug
+      # print elapsed real time to execute command
+      message = format('Command took %.2fs to execute', tms.real)
+      padding = 78 - '===[]'.length - message.length
+      IO.console.puts "===[#{message.green}]#{'=' * padding}"
+    end
   rescue RuntimeError, Errno::ENOENT
-    IO.console.print 'system("', command.blue, '"): '
-    IO.console.puts $ERROR_INFO.message.red
+    # print exception raised when executing command
+    if debug
+      message = $ERROR_INFO.message
+      padding = 78 - '===[]'.length - message.length
+      IO.console.puts "===[#{message.red}]#{'=' * padding}"
+    else
+      IO.console.puts $ERROR_INFO.message
+    end
   end
 
   # empty separator line
