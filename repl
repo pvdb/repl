@@ -6,6 +6,7 @@ REPL_VERSION = '1.0.0' # match with `lib/repl/version.rb`
 
 require 'mkmf'
 require 'English'
+require 'benchmark'
 require 'fileutils'
 require 'shellwords'
 require 'io/console'
@@ -209,7 +210,9 @@ loop do
   end
 
   begin
-    system(command, exception: true)
+    tms = Benchmark.measure do
+      system(command, exception: true)
+    end
   rescue RuntimeError, Errno::ENOENT
     IO.console.print 'system("', command.blue, '"): '
     IO.console.puts $ERROR_INFO.message.red
