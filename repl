@@ -110,7 +110,7 @@ unless repl_wrapped?
     # rubocop:disable Metrics/BlockNesting
     # rubocop:disable Style/SoleNestedConditional
     unless (base_cmd = (ARGV - OPTIONS).map(&:strip).first).nil?
-      unless which(base_cmd).nil?
+      if File.executable?(base_cmd) || !which(base_cmd).nil?
         base_cmd = File.basename(base_cmd)
 
         default_history_dir = Dir.home
