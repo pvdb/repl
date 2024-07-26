@@ -14,9 +14,21 @@ require 'io/console'
 ##
 # script-specific IO::console extension
 class IO
-  def console.log(message, color = :bold)
-    padding = '=' * (78 - '===[]'.length - message.length)
-    puts "===[#{message.send(color)}]#{padding}"
+  def console.log(message, color = :bold, width = 78)
+    # deduct length of '===[]==' (7 characters)
+    max_msg_len = width < 78 ? 71 : (width - 7)
+
+    # truncate message if too long
+    log_msg = if message.length > max_msg_len
+                "#{message[0, (max_msg_len - 3)]}..."
+              else
+                message
+              end
+
+    # add padding to message to fill overall width
+    padding = '=' * (max_msg_len - log_msg.length)
+
+    puts "===[#{log_msg.send(color)}]==#{padding}"
   end
 end
 
@@ -33,6 +45,10 @@ end
 class String
   def colorize(color_code)
     "\e[#{color_code}m#{self}\e[0m"
+  end
+
+  def strip_ansi
+    gsub(/\e\[(\d+)(;\d+)*m/, '')
   end
 
   # rubocop:disable Style/SingleLineMethods
@@ -185,6 +201,8 @@ cmd_prompt = if debug
                "\"#{cmd_template.blue}\""
              end
 
+prompt_length = cmd_prompt.strip_ansi.length
+
 repl_prompt = ENV.fetch('REPL_PROMPT', '>>')
 full_prompt = "#{cmd_prompt} #{repl_prompt}"
 
@@ -213,18 +231,18 @@ loop do
 
   begin
     # print "expanded" command to be executed
-    IO.console.log(command, :blue) if debug
+    IO.console.log(command, :blue, prompt_length) if debug
 
     tms = Benchmark.measure do
       system(command, exception: true)
     end
 
     # print elapsed real time to execute command
-    IO.console.log(format('Command took %.2fs to execute', tms.real), :green) if debug
+    IO.console.log(format('Command took %.2fs to execute', tms.real), :green, prompt_length) if debug
   rescue RuntimeError, Errno::ENOENT
     # print exception raised when executing command
     if debug
-      IO.console.log($ERROR_INFO.message, :red)
+      IO.console.log($ERROR_INFO.message, :red, prompt_length)
     else
       IO.console.puts($ERROR_INFO.message)
     end
