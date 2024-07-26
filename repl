@@ -12,6 +12,15 @@ require 'shellwords'
 require 'io/console'
 
 ##
+# script-specific IO::console extension
+class IO
+  def console.log(message, color = :bold)
+    padding = '=' * (78 - '===[]'.length - message.length)
+    puts "===[#{message.send(color)}]#{padding}"
+  end
+end
+
+##
 # script-specific Kernel extension
 module Kernel
   def which(executable)
@@ -59,12 +68,12 @@ def repl_version
 end
 
 if ARGV.delete('--version')
-  IO.console.puts repl_version
+  IO.console.puts(repl_version)
   exit(0)
 end
 
 if ARGV.delete('--help')
-  IO.console.puts DATA.read
+  IO.console.puts(DATA.read)
   exit(0)
 end
 
@@ -153,7 +162,7 @@ quiet  = ARGV.delete('--quiet') || ENV['REPL_QUIET']&.true?
 
 # command is whatever's left
 if (cmd_string = ARGV.join(' ').strip).empty?
-  IO.console.puts 'No command specified... use `--help`'
+  IO.console.puts('No command specified... use `--help`')
   exit(0)
 end
 
@@ -200,33 +209,24 @@ loop do
   command = cmd_template.gsub('%s', line) # expand _all_ '%s' placeholders
 
   # clear terminal screen
-  IO.console.puts "\e[H\e[2J" if clear
+  IO.console.puts("\e[H\e[2J") if clear
 
   begin
-    if debug
-      # print "expanded" command to be executed
-      padding = 78 - '===[]'.length - command.length
-      IO.console.puts "===[#{command.blue}]#{'=' * padding}"
-    end
+    # print "expanded" command to be executed
+    IO.console.log(command, :blue) if debug
 
     tms = Benchmark.measure do
       system(command, exception: true)
     end
 
-    if debug
-      # print elapsed real time to execute command
-      message = format('Command took %.2fs to execute', tms.real)
-      padding = 78 - '===[]'.length - message.length
-      IO.console.puts "===[#{message.green}]#{'=' * padding}"
-    end
+    # print elapsed real time to execute command
+    IO.console.log(format('Command took %.2fs to execute', tms.real), :green) if debug
   rescue RuntimeError, Errno::ENOENT
     # print exception raised when executing command
     if debug
-      message = $ERROR_INFO.message
-      padding = 78 - '===[]'.length - message.length
-      IO.console.puts "===[#{message.red}]#{'=' * padding}"
+      IO.console.log($ERROR_INFO.message, :red)
     else
-      IO.console.puts $ERROR_INFO.message
+      IO.console.puts($ERROR_INFO.message)
     end
   end
 
