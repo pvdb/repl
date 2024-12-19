@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' content='text/html;charset=utf-8'>
+  <meta name='generator' content='Ronn-NG/v0.10.1 (http://github.com/apjanke/ronn-ng/tree/0.10.1)'>
+  <title>repl(1) - sometimes you &lt;em&gt;really&lt;/em&gt; need a repl</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#EXAMPLES">EXAMPLES</a>
+    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#COMPLETION">COMPLETION</a>
+    <a href="#COMMAND-HISTORY">COMMAND HISTORY</a>
+    <a href="#ENVIRONMENT">ENVIRONMENT</a>
+    <a href="#HOMEPAGE">HOMEPAGE</a>
+    <a href="#BUGS">BUGS</a>
+    <a href="#AUTHOR">AUTHOR</a>
+    <a href="#CREDITS">CREDITS</a>
+    <a href="#SEE-ALSO">SEE ALSO</a>
+  </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>repl(1)</li>
+    <li class='tc'>Awesome Utilities</li>
+    <li class='tr'>repl(1)</li>
+  </ol>
+
+  
+
+<h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>repl</code> - <span class="man-whatis">sometimes you <em>really</em> need a repl</span>
+</p>
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>repl</code> <var>[options]</var> <var>command</var> &lt;...&gt;</p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p><code>repl</code> wraps a non-interactive <code>command</code> in an interactive
+read-eval-print-loop prompt. Each line you type into the prompt is
+executed as arguments to <code>command</code>. Anything written to standard
+output or standard error by the <code>command</code> is displayed.</p>
+
+<p>If you have <code>rlwrap(1)</code> installed you'll automatically get the full
+benefits of readline: history, reverse searches, etc.</p>
+
+<p><code>repl</code> is meant to wrap programs which accept command line arguments
+and print to the standard output. It keeps no state between executed
+lines and, as such, cannot be used to replace <code>irb</code> or the Python
+REPL (for example).</p>
+
+<h2 id="EXAMPLES">EXAMPLES</h2>
+
+<p>Using <code>repl</code> with <code>redis-cli</code>:</p>
+
+<pre><code>$ repl redis-cli
+&gt;&gt; set name chris
+OK
+&gt;&gt; get name
+chris
+&gt;&gt; info
+redis_version:1.000
+uptime_in_seconds:182991
+uptime_in_days:2
+.. etc ..
+</code></pre>
+
+<p>Using <code>repl</code> with Ruby's <code>gem</code>:</p>
+
+<pre><code>$ repl gem
+&gt;&gt; --version
+1.3.5
+&gt;&gt; search yajl
+
+*** LOCAL GEMS ***
+
+yajl-ruby (0.6.7)
+&gt;&gt; search yajl -r
+
+*** REMOTE GEMS ***
+
+brianmario-yajl-ruby (0.6.3)
+filipegiusti-yajl-ruby (0.6.4)
+jdg-yajl-ruby (0.5.12)
+oortle-yajl-ruby (0.5.8)
+yajl-ruby (0.6.7)
+</code></pre>
+
+<p>Using <code>repl</code> with <code>git</code>:</p>
+
+<pre><code>$ repl git
+&gt;&gt; branch
+  gh-pages
+* master
+&gt;&gt; tag
+rm
+v0.1.0
+v0.1.1
+v0.1.2
+v0.1.3
+&gt;&gt; tag -d rm
+Deleted tag 'rm'
+&gt;&gt; pwd
+git: 'pwd' is not a git-command. See 'git --help'.
+
+Did you mean this?
+  add
+</code></pre>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<dl>
+<dt><code>--version</code></dt>
+<dd>Display <code>repl</code> version information.</dd>
+<dt><code>--help</code></dt>
+<dd>Display <code>repl</code> usage information.</dd>
+<dt><code>--man</code></dt>
+<dd>Display the <code>repl</code> man page</dd>
+<dt><code>--html</code></dt>
+<dd>Open HTML version of man page</dd>
+<dt><code>--debug</code></dt>
+<dd>Display each command being executed</dd>
+<dt><code>--quiet</code></dt>
+<dd>Don't echo the prompt in pipelines</dd>
+</dl>
+
+<h2 id="COMPLETION">COMPLETION</h2>
+
+<p>Because <code>rlwrap</code> supports completion, <code>repl</code> does too. Any file in
+<code>~/.repl</code> matching the name of the command you start <code>repl</code> with will
+be used for completion.</p>
+
+<p>For instance, a file named <code>~/.repl/redis-cli</code> containing "get set
+info" will cause "get", "set", and "info" to be tab completeable at
+the <code>repl redis-cli</code> prompt.</p>
+
+<p>The directory searched for completion files can be configured using
+the <code>REPL_COMPLETION_DIR</code> environment variable.</p>
+
+<h2 id="COMMAND-HISTORY">COMMAND HISTORY</h2>
+
+<p>Because <code>rlwrap</code> supports command history, <code>repl</code> does too. Any file in
+<code>~/</code> matching the name of the command you start <code>repl</code> with prefix
+with a dot and suffixed with "_history" will be used for completion.</p>
+
+<p>For instance, a file named <code>~/.redis-cli_history</code> containing a newline
+separated list of "get set info" will cause "get", "set", and "info"
+to be reachable using the up arrow as command history at the <code>repl
+redis-cli</code> prompt.</p>
+
+<p>The directory searched for history files can be configured using the
+<code>REPL_HISTORY_DIR</code> environment variable.</p>
+
+<h2 id="ENVIRONMENT">ENVIRONMENT</h2>
+
+<p>The following environment variables can be used to configure <code>repl</code>'s behaviour, and can be set permanently in the <code>~/.repl.conf</code> configuration file:</p>
+
+<h3 id="REPL_PROMPT">REPL_PROMPT</h3>
+
+<p>the prompt to display before each line of input (defaults to <code>&gt;&gt;</code>)</p>
+
+<h3 id="REPL_DEBUG">REPL_DEBUG</h3>
+
+<p>print out the expanded command before executing it</p>
+
+<h3 id="REPL_QUIET">REPL_QUIET</h3>
+
+<p>suppress superfluous output when inside a pipeline</p>
+
+<h3 id="REPL_HISTORY_DIR">REPL_HISTORY_DIR</h3>
+
+<p>directory in which command history files are kept</p>
+
+<h3 id="REPL_COMPLETION_DIR">REPL_COMPLETION_DIR</h3>
+
+<p>directory in which command completion files are kept</p>
+
+<h2 id="HOMEPAGE">HOMEPAGE</h2>
+
+<p><a href="http://github.com/pvdb/repl" data-bare-link="true">http://github.com/pvdb/repl</a></p>
+
+<p>You will find many more practical examples there!</p>
+
+<h2 id="BUGS">BUGS</h2>
+
+<p><a href="http://github.com/pvdb/repl/issues" data-bare-link="true">http://github.com/pvdb/repl/issues</a></p>
+
+<h2 id="AUTHOR">AUTHOR</h2>
+
+<p>Peter Vandenberk :: <a href="https://github.com/pvdb">@pvdb</a></p>
+
+<h2 id="CREDITS">CREDITS</h2>
+
+<p>Chris Wanstrath :: <a href="https://github.com/defunkt">@defunkt</a></p>
+
+<p>Check out his (awesome, but unmaintained) <a href="https://github.com/defunkt/repl">original version</a> on which this one is based!</p>
+
+<h2 id="SEE-ALSO">SEE ALSO</h2>
+
+<p><span class="man-ref">rlwrap<span class="s">(1)</span></span>, <span class="man-ref">readline<span class="s">(3)</span></span></p>
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'>PVDB</li>
+    <li class='tc'>January 2025</li>
+    <li class='tr'>repl(1)</li>
+  </ol>
+
+  </div>
+</body>
+</html>

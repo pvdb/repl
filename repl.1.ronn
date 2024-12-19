@@ -1,0 +1,173 @@
+repl(1) - sometimes you _really_ need a repl
+============================================
+
+## SYNOPSIS
+
+`repl` <[options]> <command> <...>
+
+## DESCRIPTION
+
+`repl` wraps a non-interactive `command` in an interactive
+read-eval-print-loop prompt. Each line you type into the prompt is
+executed as arguments to `command`. Anything written to standard
+output or standard error by the `command` is displayed.
+
+If you have `rlwrap(1)` installed you'll automatically get the full
+benefits of readline: history, reverse searches, etc.
+
+`repl` is meant to wrap programs which accept command line arguments
+and print to the standard output. It keeps no state between executed
+lines and, as such, cannot be used to replace `irb` or the Python
+REPL (for example).
+
+## EXAMPLES
+
+Using `repl` with `redis-cli`:
+
+    $ repl redis-cli
+    >> set name chris
+    OK
+    >> get name
+    chris
+    >> info
+    redis_version:1.000
+    uptime_in_seconds:182991
+    uptime_in_days:2
+    .. etc ..
+
+
+Using `repl` with Ruby's `gem`:
+
+    $ repl gem
+    >> --version
+    1.3.5
+    >> search yajl
+
+    *** LOCAL GEMS ***
+
+    yajl-ruby (0.6.7)
+    >> search yajl -r
+
+    *** REMOTE GEMS ***
+
+    brianmario-yajl-ruby (0.6.3)
+    filipegiusti-yajl-ruby (0.6.4)
+    jdg-yajl-ruby (0.5.12)
+    oortle-yajl-ruby (0.5.8)
+    yajl-ruby (0.6.7)
+
+
+Using `repl` with `git`:
+
+    $ repl git
+    >> branch
+      gh-pages
+    * master
+    >> tag
+    rm
+    v0.1.0
+    v0.1.1
+    v0.1.2
+    v0.1.3
+    >> tag -d rm
+    Deleted tag 'rm'
+    >> pwd
+    git: 'pwd' is not a git-command. See 'git --help'.
+
+    Did you mean this?
+      add
+
+## OPTIONS
+
+  * `--version`:
+    Display `repl` version information.
+
+  * `--help`:
+    Display `repl` usage information.
+
+  * `--man`:
+    Display the `repl` man page
+
+  * `--html`:
+    Open HTML version of man page
+
+  * `--debug`:
+    Display each command being executed
+
+  * `--quiet`:
+    Don't echo the prompt in pipelines
+
+## COMPLETION
+
+Because `rlwrap` supports completion, `repl` does too. Any file in
+`~/.repl` matching the name of the command you start `repl` with will
+be used for completion.
+
+For instance, a file named `~/.repl/redis-cli` containing "get set
+info" will cause "get", "set", and "info" to be tab completeable at
+the `repl redis-cli` prompt.
+
+The directory searched for completion files can be configured using
+the `REPL_COMPLETION_DIR` environment variable.
+
+## COMMAND HISTORY
+
+Because `rlwrap` supports command history, `repl` does too. Any file in
+`~/` matching the name of the command you start `repl` with prefix
+with a dot and suffixed with "_history" will be used for completion.
+
+For instance, a file named `~/.redis-cli_history` containing a newline
+separated list of "get set info" will cause "get", "set", and "info"
+to be reachable using the up arrow as command history at the `repl
+redis-cli` prompt.
+
+The directory searched for history files can be configured using the
+`REPL_HISTORY_DIR` environment variable.
+
+## ENVIRONMENT
+
+The following environment variables can be used to configure `repl`'s behaviour, and can be set permanently in the `~/.repl.conf` configuration file:
+
+### REPL_PROMPT
+
+the prompt to display before each line of input (defaults to `>>`)
+
+### REPL_DEBUG
+
+print out the expanded command before executing it
+
+### REPL_QUIET
+
+suppress superfluous output when inside a pipeline
+
+### REPL_HISTORY_DIR
+
+directory in which command history files are kept
+
+### REPL_COMPLETION_DIR
+
+directory in which command completion files are kept
+
+## HOMEPAGE
+
+<http://github.com/pvdb/repl>
+
+You will find many more practical examples there!
+
+## BUGS
+
+<http://github.com/pvdb/repl/issues>
+
+## AUTHOR
+
+Peter Vandenberk :: [@pvdb](https://github.com/pvdb)
+
+## CREDITS
+
+Chris Wanstrath :: [@defunkt](https://github.com/defunkt)
+
+Check out his (awesome, but unmaintained) [original version](https://github.com/defunkt/repl) on which this one is based!
+
+## SEE ALSO
+
+rlwrap(1), readline(3)
